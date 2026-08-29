@@ -2,6 +2,57 @@
   "use strict";
 
   /* =========================================================
+     Background Music & Audio Controls
+     ========================================================= */
+  const bgMusic = document.getElementById("bgMusic");
+  const musicToggle = document.getElementById("musicToggle");
+
+  function playMusic() {
+    if (!bgMusic) return;
+    bgMusic.play().then(function () {
+      if (musicToggle) {
+        musicToggle.classList.add("is-playing");
+      }
+    }).catch(function (err) {
+      console.log("Audio play allowed on gesture:", err);
+    });
+  }
+
+  function pauseMusic() {
+    if (!bgMusic) return;
+    bgMusic.pause();
+    if (musicToggle) {
+      musicToggle.classList.remove("is-playing");
+    }
+  }
+
+  function toggleMusic(e) {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    if (!bgMusic) return;
+    if (bgMusic.paused) {
+      playMusic();
+    } else {
+      pauseMusic();
+    }
+  }
+
+  if (musicToggle) {
+    musicToggle.addEventListener("click", toggleMusic);
+  }
+
+  if (bgMusic) {
+    bgMusic.addEventListener("play", function () {
+      if (musicToggle) musicToggle.classList.add("is-playing");
+    });
+    bgMusic.addEventListener("pause", function () {
+      if (musicToggle) musicToggle.classList.remove("is-playing");
+    });
+  }
+
+  /* =========================================================
      Cover Screen — Tap to Open
      ========================================================= */
   const coverScreen = document.getElementById("coverScreen");
@@ -11,6 +62,16 @@
 
   function openInvitation(e) {
     if (!coverScreen || coverScreen.classList.contains("opening")) return;
+
+    // Start background music immediately on user gesture
+    playMusic();
+
+    // Show floating music control button in bottom corner
+    if (musicToggle) {
+      setTimeout(function () {
+        musicToggle.classList.add("visible");
+      }, 300);
+    }
 
     // Ripple effect at tap position
     if (e && coverRipple) {

@@ -927,7 +927,106 @@ a { color: inherit; text-decoration: none; }
   transition: color 0.25s, border-color 0.25s;
 }
 
-.footer-contact a:hover { color: var(--rose); border-color: var(--blush); }
+/* ===========================================================
+   FIXED MUSIC TOGGLE BUTTON — bottom corner
+   =========================================================== */
+.music-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 20px;
+  z-index: 600;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(253, 251, 250, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(236, 218, 223, 0.85);
+  box-shadow: 0 4px 18px rgba(199, 95, 117, 0.18), 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  color: var(--rose);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.5s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  outline: none;
+}
+
+.music-toggle.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.music-toggle:hover {
+  transform: scale(1.08);
+  border-color: var(--rose);
+  box-shadow: 0 6px 24px rgba(199, 95, 117, 0.28);
+}
+
+.music-toggle:active {
+  transform: scale(0.94);
+}
+
+.music-disc {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.music-icon {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Playing state: rotating music note, playing icon visible */
+.music-toggle.is-playing .music-icon-playing {
+  opacity: 1;
+  display: block;
+}
+
+.music-toggle.is-playing .music-icon-muted {
+  opacity: 0;
+  display: none;
+}
+
+.music-toggle.is-playing .music-disc {
+  animation: spinMusic 3.6s linear infinite;
+}
+
+/* Muted / paused state: muted icon visible with strike */
+.music-toggle:not(.is-playing) .music-icon-playing {
+  opacity: 0;
+  display: none;
+}
+
+.music-toggle:not(.is-playing) .music-icon-muted {
+  opacity: 0.75;
+  display: block;
+}
+
+@keyframes spinMusic {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@media (max-width: 420px) {
+  .music-toggle {
+    bottom: 20px;
+    right: 14px;
+    width: 42px;
+    height: 42px;
+  }
+}
 
 /* ===========================================================
    FIXED SCROLL INDICATOR — bottom-center, pill style
