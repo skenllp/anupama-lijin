@@ -138,7 +138,7 @@
      Share Invitation
      ========================================================= */
   const shareBtn = document.getElementById("shareBtn");
-  const shareText = "With happiness, we invite you to celebrate the wedding of Anupama & Lijil on 25 October 2026.";
+  const shareText = "With happiness, we invite you to celebrate the wedding of Anupama & Lijin on 25 October 2026.";
   const shareUrl = window.location.href;
 
   if (shareBtn) {
@@ -146,7 +146,7 @@
       if (navigator.share) {
         try {
           await navigator.share({
-            title: "Anupama & Lijil | Wedding Invitation",
+            title: "Anupama & Lijin | Wedding Invitation",
             text: shareText,
             url: shareUrl,
           });

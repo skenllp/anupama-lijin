@@ -1,4 +1,4 @@
-# Anupama & Lijil — Wedding Invitation Website
+# Anupama & Lijin — Wedding Invitation Website
 
 A single-page, mobile-first wedding invitation site: plain HTML/CSS/JS, no build step required.
 
